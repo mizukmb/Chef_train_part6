@@ -1,0 +1,10 @@
+DEPENDENCIES
+  nginx
+    path: site-cookbooks/nginx
+  yum-epel
+
+GRAPH
+  nginx (0.1.0)
+  yum (3.11.0)
+  yum-epel (0.7.0)
+    yum (>= 3.6.3)
