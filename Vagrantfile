@@ -30,6 +30,7 @@ Vagrant.configure(2) do |config|
       recipe[yum-epel]
       recipe[nginx]
       recipe[php-env::php7]
+      recipe[ruby-env]
     ]
   end
   # Disable automatic box update checking. If you disable this, then
