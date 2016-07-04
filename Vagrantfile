@@ -36,6 +36,7 @@ Vagrant.configure(2) do |config|
       recipe[ruby-env]
       recipe[nodejs]
       recipe[mysql]
+      recipe[fluentd]
     ]
   end
   # Disable automatic box update checking. If you disable this, then

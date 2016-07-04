@@ -1,4 +1,6 @@
 DEPENDENCIES
+  fluentd
+    path: site-cookbooks/fluentd
   mysql
     path: site-cookbooks/mysql
   nginx
@@ -10,6 +12,7 @@ DEPENDENCIES
   yum-epel
 
 GRAPH
+  fluentd (0.1.0)
   mysql (0.1.0)
   nginx (0.1.0)
   nodejs (0.1.0)

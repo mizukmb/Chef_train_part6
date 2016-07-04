@@ -1,9 +1,9 @@
 [mysqld]
 log-bin
 <% if node['hostname'] == 'dbmaster' %>
-  server-id=1
+server-id=1
 <% elsif node['hostname'] == 'dbslave' %>
-  server-id=2
+server-id=2
 <% end %>
 datadir=/var/lib/mysql
 socket=/var/lib/mysql/mysql.sock

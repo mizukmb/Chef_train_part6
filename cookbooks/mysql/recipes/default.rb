@@ -28,18 +28,18 @@ execute 'set root password' do
 end
 
 template 'create slave user sql' do
-  path '/home/#{node['mysql']['user']}/create_slave_user.sql'
-  source 'create_slave_user/sql.erb'
+  path "/home/#{node['mysql']['user']}/create_slave_user.sql"
+  source 'create_slave_user.sql.erb'
   owner node['mysql']['user']
   group node['mysql']['group']
   mode '0644'
 end
 
 execute 'exec create_slave_user.sql' do
-  command "mysql -u root --password='#{node['mysql']['server_root_password']}' < /home/#{node['mysql']['user']/create_slave_user.sql}"
+  command "mysql -u root --password='#{node['mysql']['server_root_password']}' < /home/#{node['mysql']['user']}/create_slave_user.sql"
   user node['mysql']['user']
   group node['mysql']['group']
-  environment 'HOME' => '/home/#{node['mysql']['user']}'
+  environment 'HOME' => "/home/#{node['mysql']['user']}"
   only_if { node['hostname'] == 'dbmaster' }
 end
 
