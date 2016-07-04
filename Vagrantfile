@@ -24,6 +24,9 @@ Vagrant.configure(2) do |config|
     chef.json = {
       nginx: {
         env: ["php", "ruby"]
+      },
+      mysql: {
+        server_root_password: 'rootpass'
       }
     }
     chef.run_list = %w[
@@ -32,6 +35,7 @@ Vagrant.configure(2) do |config|
       recipe[php-env::php7]
       recipe[ruby-env]
       recipe[nodejs]
+      recipe[mysql]
     ]
   end
   # Disable automatic box update checking. If you disable this, then
@@ -88,4 +92,14 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+
+  config.vm.define 'dbmaster' do |dbmaster|
+    dbmaster.vm.hostname = 'dbmaster'
+    dbmaster.vm.network :private_network, ip: '192.168.33.10'
+  end
+
+  config.vm.define 'dbslave' do |dbslave|
+    dbslave.vm.hostname = 'dbslave'
+    dbslave.vm.network :private_network, ip: '192.168.33.11'
+  end
 end
