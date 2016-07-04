@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
     chef.cookbooks_path = ["./cookbooks", "./site-cookbooks"]
     chef.json = {
       nginx: {
-        env: ["php"]
+        env: ["php", "ruby"]
       }
     }
     chef.run_list = %w[
@@ -31,6 +31,7 @@ Vagrant.configure(2) do |config|
       recipe[nginx]
       recipe[php-env::php7]
       recipe[ruby-env]
+      recipe[nodejs]
     ]
   end
   # Disable automatic box update checking. If you disable this, then

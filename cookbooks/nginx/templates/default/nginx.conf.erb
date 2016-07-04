@@ -18,6 +18,12 @@ http {
   sendfile on;
   keepalive_timeout 65;
 
+  <% if node['nginx']['env'].include?("ruby") %>
+    upstream unicorn {
+      server unix:/tmp/unicorn.sock;
+    }
+  <% end %>
+
   server {
     listen 80 default_server;
     server_name _;
@@ -43,6 +49,13 @@ http {
       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
       include fastcgi_params;
     }
-    <% end %>
+  <% end %>
+
+  <% if node['nginx']['env'].include?("ruby") %>
+    location /unicorn {
+      rewrite ^/unicorn/(.+) /$1 break;
+      proxy_pass http://unicorn/$1;
+    }
+  <% end %>
   }
 }
